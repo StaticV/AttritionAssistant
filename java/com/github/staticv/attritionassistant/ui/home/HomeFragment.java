@@ -36,33 +36,6 @@ public class HomeFragment extends Fragment {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        TextView numberTextView = binding.numberTextView;
-        Button decrementButton = binding.decrementButton;
-        Button incrementButton = binding.incrementButton;
-
-        // Set text on TextView initially
-        numberTextView.setText(String.valueOf(number));
-
-        // Handle button click for decrementing the number
-        decrementButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                number--;
-                numberTextView.setText(String.valueOf(number));
-            }
-
-            
-        });
-
-        // Handle button click for incrementing the number
-        incrementButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                number++;
-                numberTextView.setText(String.valueOf(number));
-            }
-        });
-
         return root;
     }
 }

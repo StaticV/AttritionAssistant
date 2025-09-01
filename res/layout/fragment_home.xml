@@ -1,33 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
 
-    <TextView
-        android:id="@+id/numberTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="0"
-        android:textSize="24sp"
-        android:layout_centerInParent="true"/>
+        <com.github.staticv.attritionassistant.ui.home.CounterView
+            android:id="@+id/counter_food"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:counterColor="@android:color/holo_green_light" />
 
-    <Button
-        android:id="@+id/decrementButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="-"
-        android:layout_alignParentLeft="true"
-        android:layout_above="@id/numberTextView"
-        android:layout_marginBottom="16dp"/>
+        <com.github.staticv.attritionassistant.ui.home.CounterView
+            android:id="@+id/counter_wood"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:counterColor="@android:color/holo_orange_dark" />
 
-    <Button
-        android:id="@+id/incrementButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="+"
-        android:layout_alignParentRight="true"
-        android:layout_above="@id/numberTextView"
-        android:layout_marginBottom="16dp"/>
+        <com.github.staticv.attritionassistant.ui.home.CounterView
+            android:id="@+id/counter_stone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:counterColor="@android:color/holo_blue_light" />
 
-</RelativeLayout>
+        <com.github.staticv.attritionassistant.ui.home.CounterView
+            android:id="@+id/counter_horse"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:counterColor="@android:color/holo_purple" />
+
+        <com.github.staticv.attritionassistant.ui.home.CounterView
+            android:id="@+id/counter_iron"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:counterColor="@android:color/holo_red_light" />
+
+        <com.github.staticv.attritionassistant.ui.home.CounterView
+            android:id="@+id/counter_gold"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:counterColor="@android:color/holo_orange_light" />
+
+    </LinearLayout>
