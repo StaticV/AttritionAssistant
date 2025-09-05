@@ -1,22 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.dashboard.DashboardFragment">
+    android:orientation="vertical"
+    android:padding="16dp">
 
-    <TextView
-        android:id="@+id/text_dashboard"
+    <com.github.staticv.attritionassistant.ui.CounterView
+        android:id="@+id/counter_farm"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:layout_marginTop="16dp"
+        app:counterColor="@android:color/holo_green_light"
+        app:counterLabel="@string/label_farm" />
+
+    <com.github.staticv.attritionassistant.ui.CounterView
+        android:id="@+id/counter_mill"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:counterColor="@android:color/holo_orange_dark"
+        app:counterLabel="@string/label_mill" />
+
+    <com.github.staticv.attritionassistant.ui.CounterView
+        android:id="@+id/counter_quarry"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:counterColor="@android:color/holo_blue_light"
+        app:counterLabel="@string/label_quarry" />
+
+    <com.github.staticv.attritionassistant.ui.CounterView
+        android:id="@+id/counter_stable"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:counterColor="@android:color/holo_purple"
+        app:counterLabel="@string/label_stable" />
+
+    <com.github.staticv.attritionassistant.ui.CounterView
+        android:id="@+id/counter_forge"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:counterColor="@android:color/holo_red_light"
+        app:counterLabel="@string/label_forge" />
+
+    <com.github.staticv.attritionassistant.ui.CounterView
+        android:id="@+id/counter_palace"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:counterColor="@android:color/holo_orange_light"
+        app:counterLabel="@string/label_palace" />
+
+</LinearLayout>
