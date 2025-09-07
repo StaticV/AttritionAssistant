@@ -1,6 +1,33 @@
 <resources>
     <string name="app_name">AttritionAssistant</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_home">Resources</string>
+    <string name="title_dashboard">Buildings</string>
+    <string name="title_notifications">Armies</string>
+
+    <string name="label_inc">+</string>
+    <string name="label_dec">-</string>
+
+    <string name="label_food">Food</string>
+    <string name="label_wood">Wood</string>
+    <string name="label_stone">Stone</string>
+    <string name="label_horse">Horses</string>
+    <string name="label_iron">Iron</string>
+    <string name="label_gold">Gold</string>
+
+    <string name="label_farm">Farm</string>
+    <string name="label_mill">Mill</string>
+    <string name="label_quarry">Quarry</string>
+    <string name="label_stable">Stables</string>
+    <string name="label_forge">Forge</string>
+    <string name="label_palace">Palace</string>
+
+    <string name="label_farmer">Peasant</string>
+    <string name="label_archer">Archer</string>
+    <string name="label_rider">Rider</string>
+    <string name="label_knight">Knight</string>
+    <string name="label_sword">Sworder</string>
+    <string name="label_piker">Piker</string>
+
+    <string name="label_collect">Collect</string>
+    <string name="label_fight">Fight</string>
 </resources>

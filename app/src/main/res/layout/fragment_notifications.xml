@@ -6,17 +6,84 @@
     android:layout_height="match_parent"
     tools:context=".ui.notifications.NotificationsFragment">
 
-    <TextView
-        android:id="@+id/text_notifications"
-        android:layout_width="match_parent"
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_top"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.05" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_bottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.9" />
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:clipToPadding="false"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        app:layout_constraintBottom_toTopOf="@id/guideline_bottom"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@id/guideline_top">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.github.staticv.attritionassistant.ui.CounterView
+                android:id="@+id/counter_farmer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:counterColor="@android:color/holo_green_light"
+                app:counterLabel="@string/label_farmer" />
+
+            <com.github.staticv.attritionassistant.ui.CounterView
+                android:id="@+id/counter_archer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                app:counterColor="@android:color/holo_orange_dark"
+                app:counterLabel="@string/label_archer" />
+
+            <com.github.staticv.attritionassistant.ui.CounterView
+                android:id="@+id/counter_rider"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                app:counterColor="@android:color/holo_blue_light"
+                app:counterLabel="@string/label_rider" />
+
+            <com.github.staticv.attritionassistant.ui.CounterView
+                android:id="@+id/counter_knight"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                app:counterColor="@android:color/holo_purple"
+                app:counterLabel="@string/label_knight" />
+
+            <com.github.staticv.attritionassistant.ui.CounterView
+                android:id="@+id/counter_sworder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                app:counterColor="@android:color/holo_red_light"
+                app:counterLabel="@string/label_sword" />
+
+            <com.github.staticv.attritionassistant.ui.CounterView
+                android:id="@+id/counter_piker"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                app:counterColor="@android:color/holo_orange_light"
+                app:counterLabel="@string/label_piker" />
+
+        </LinearLayout>
+    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
