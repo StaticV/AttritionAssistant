@@ -15,7 +15,7 @@
         android:id="@+id/navigation_dashboard"
         android:name="com.github.staticv.attritionassistant.ui.buildings.BuildingsFragment"
         android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_building" />
+        tools:layout="@layout/fragment_buildings" />
 
     <fragment
         android:id="@+id/navigation_notifications"

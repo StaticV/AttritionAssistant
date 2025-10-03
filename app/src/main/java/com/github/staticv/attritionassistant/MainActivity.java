@@ -13,15 +13,12 @@ import com.github.staticv.attritionassistant.ui.Resources;
 
 public class MainActivity extends AppCompatActivity {
 
-    private ActivityMainBinding binding;
-    private Resources resources;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         // Get ViewModel instance before any fragments are created
-        resources = new ViewModelProvider(this).get(Resources.class);
+        Resources resources = new ViewModelProvider(this).get(Resources.class);
 
         // Define and pass all string labels from all fragments to the ViewModel
         String[] allLabels = {
@@ -48,14 +45,22 @@ public class MainActivity extends AppCompatActivity {
         };
         resources.init(allLabels);
 
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        BottomNavigationView navView = findViewById(R.id.nav_view);
+        // FIX: Removed redundant findViewById(R.id.nav_view) and the unused 'navView' variable.
+
+        // Use binding.navView directly
+        BottomNavigationView navView = binding.navView;
+
+        // Ensure your AppBarConfiguration keys match your navigation destinations
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications).build();
+
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
+
+        // This line already uses the binding object correctly
         NavigationUI.setupWithNavController(binding.navView, navController);
     }
 }

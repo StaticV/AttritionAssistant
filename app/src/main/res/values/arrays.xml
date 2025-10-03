@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="building_costs_data">
+        <item>Wood:1</item>
+
+        <item>Wood:2|Stone:2</item>
+
+        <item>Wood:3|Stone:2</item>
+
+        <item>Wood:3</item>
+
+        <item>Stone:2</item>
+
+        <item>Wood:1,Stone:1,Iron:1</item>
+    </string-array>
+</resources>
