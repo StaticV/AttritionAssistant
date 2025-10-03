@@ -48,19 +48,17 @@ public class MainActivity extends AppCompatActivity {
         ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        // FIX: Removed redundant findViewById(R.id.nav_view) and the unused 'navView' variable.
-
-        // Use binding.navView directly
-        BottomNavigationView navView = binding.navView;
+        // Removed the line: BottomNavigationView navView = binding.navView;
 
         // Ensure your AppBarConfiguration keys match your navigation destinations
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications).build();
 
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
+
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
 
-        // This line already uses the binding object correctly
+        // This line remains correct, using the binding object directly
         NavigationUI.setupWithNavController(binding.navView, navController);
     }
 }
