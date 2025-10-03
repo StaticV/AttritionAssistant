@@ -1,7 +1,6 @@
 package com.github.staticv.attritionassistant;
 
 import android.os.Bundle;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
