@@ -1,4 +1,4 @@
-package com.github.staticv.attritionassistant.ui.home;
+package com.github.staticv.attritionassistant.ui.resource;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -15,17 +15,16 @@ import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.ViewModelProvider;
 import com.github.staticv.attritionassistant.R;
 import com.github.staticv.attritionassistant.ui.Resources;
-import com.github.staticv.attritionassistant.databinding.FragmentHomeBinding;
+import com.github.staticv.attritionassistant.databinding.FragmentResourceBinding;
 
-public class HomeFragment extends Fragment {
+public class ResourceFragment extends Fragment {
 
-    private FragmentHomeBinding binding;
-    private Resources resources;
+    private FragmentResourceBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        resources = new ViewModelProvider(requireActivity()).get(Resources.class);
-        binding = FragmentHomeBinding.inflate(inflater, container, false);
+        Resources resources = new ViewModelProvider(requireActivity()).get(Resources.class);
+        binding = FragmentResourceBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
         // Add the MenuProvider to the fragment's menu host
@@ -34,7 +33,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onCreateMenu(@NonNull Menu menu, @NonNull MenuInflater menuInflater) {
                 // Inflate the menu for this fragment
-                menuInflater.inflate(R.menu.menu_home_collect, menu);
+                menuInflater.inflate(R.menu.menu_resource_collect, menu);
             }
 
             @Override

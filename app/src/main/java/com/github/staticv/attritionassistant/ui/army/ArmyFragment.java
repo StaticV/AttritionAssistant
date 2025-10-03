@@ -1,4 +1,4 @@
-package com.github.staticv.attritionassistant.ui.notifications;
+package com.github.staticv.attritionassistant.ui.army;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,19 +9,18 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import com.github.staticv.attritionassistant.R;
 import com.github.staticv.attritionassistant.ui.Resources;
-import com.github.staticv.attritionassistant.databinding.FragmentNotificationsBinding;
+import com.github.staticv.attritionassistant.databinding.FragmentArmyBinding;
 
 
-public class NotificationsFragment extends Fragment {
+public class ArmyFragment extends Fragment {
 
-    private FragmentNotificationsBinding binding;
-    private Resources resources;
+    private FragmentArmyBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        resources = new ViewModelProvider(requireActivity()).get(Resources.class);
+        Resources resources = new ViewModelProvider(requireActivity()).get(Resources.class);
 
-        binding = FragmentNotificationsBinding.inflate(inflater, container, false);
+        binding = FragmentArmyBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
         binding.counterFarmer.setupWithViewModel(getViewLifecycleOwner(), resources, getString(R.string.label_farmer));

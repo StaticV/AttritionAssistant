@@ -1,4 +1,4 @@
-package com.github.staticv.attritionassistant.ui.dashboard;
+package com.github.staticv.attritionassistant.ui.buildings;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,18 +9,17 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import com.github.staticv.attritionassistant.R;
 import com.github.staticv.attritionassistant.ui.Resources;
-import com.github.staticv.attritionassistant.databinding.FragmentDashboardBinding;
+import com.github.staticv.attritionassistant.databinding.FragmentBuildingBinding;
 
-public class DashboardFragment extends Fragment {
+public class BuildingsFragment extends Fragment {
 
-    private FragmentDashboardBinding binding;
-    private Resources resources;
+    private FragmentBuildingBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        resources = new ViewModelProvider(requireActivity()).get(Resources.class);
+        Resources resources = new ViewModelProvider(requireActivity()).get(Resources.class);
 
-        binding = FragmentDashboardBinding.inflate(inflater, container, false);
+        binding = FragmentBuildingBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
         String farmLabel = getString(R.string.label_farm);

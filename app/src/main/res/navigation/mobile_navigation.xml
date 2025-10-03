@@ -7,19 +7,19 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="com.github.staticv.attritionassistant.ui.home.HomeFragment"
+        android:name="com.github.staticv.attritionassistant.ui.resource.ResourceFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_resource" />
 
     <fragment
         android:id="@+id/navigation_dashboard"
-        android:name="com.github.staticv.attritionassistant.ui.dashboard.DashboardFragment"
+        android:name="com.github.staticv.attritionassistant.ui.buildings.BuildingsFragment"
         android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        tools:layout="@layout/fragment_building" />
 
     <fragment
         android:id="@+id/navigation_notifications"
-        android:name="com.github.staticv.attritionassistant.ui.notifications.NotificationsFragment"
+        android:name="com.github.staticv.attritionassistant.ui.army.ArmyFragment"
         android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        tools:layout="@layout/fragment_army" />
 </navigation>
