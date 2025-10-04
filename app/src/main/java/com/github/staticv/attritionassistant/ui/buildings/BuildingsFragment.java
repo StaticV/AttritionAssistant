@@ -15,8 +15,6 @@ public class BuildingsFragment extends Fragment {
 
     private FragmentBuildingsBinding binding;
 
-    // REMOVED ALL STATIC INDEX CONSTANTS (FARM_INDEX, MILL_INDEX, etc.)
-
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
@@ -25,15 +23,13 @@ public class BuildingsFragment extends Fragment {
         View root = binding.getRoot();
 
         // 1. Load Cost Data and Building Labels from parallel arrays
-        // NOTE: Ensure you have an array defined as 'building_labels_array' in your XML
         final String[] buildingLabels = getResources().getStringArray(R.array.building_labels_array);
         final String[] costsData = getResources().getStringArray(R.array.building_costs_data);
 
-        // Load the HashMap in the ViewModel for safe lookups later
+        // This is the crucial step: Loading the map data into the ViewModel
         resources.setBuildingCosts(buildingLabels, costsData);
 
-        // --- 2. Define required variables using the loaded arrays ---
-        // Accessing array elements by index is safe *here* because they are parallel arrays.
+        // --- 2. Define Label variables (Labels are the HashMap keys) ---
         final String FARM_LABEL = buildingLabels[0];
         final String MILL_LABEL = buildingLabels[1];
         final String QUARRY_LABEL = buildingLabels[2];
@@ -41,20 +37,18 @@ public class BuildingsFragment extends Fragment {
         final String FORGE_LABEL = buildingLabels[4];
         final String PALACE_LABEL = buildingLabels[5];
 
-        final String FARM_COST = costsData[0];
-        final String MILL_COST = costsData[1];
-        final String QUARRY_COST = costsData[2];
-        final String STABLE_COST = costsData[3];
-        final String FORGE_COST = costsData[4];
-        final String PALACE_COST = costsData[5];
+        // REMOVED local COST variables (FARM_COST, MILL_COST, etc.)
+        // We will now retrieve the cost dynamically using the label.
 
         // --- 3. Setup ALL counters and OVERRIDE the Increment Listener ---
 
         // FARM SETUP
         binding.counterFarm.setupWithViewModel(getViewLifecycleOwner(), resources, FARM_LABEL);
         binding.counterFarm.getBinding().incButton.setOnClickListener(v -> {
-            if (resources.canAffordComplex(FARM_COST)) {
-                resources.deductCost(FARM_COST);
+            // FIX: Get cost dynamically from the ViewModel's HashMap
+            String cost = resources.getCostForBuilding(FARM_LABEL);
+            if (resources.canAffordComplex(cost)) {
+                resources.deductCost(cost);
                 resources.incrementCounter(FARM_LABEL);
             }
         });
@@ -62,8 +56,10 @@ public class BuildingsFragment extends Fragment {
         // MILL SETUP
         binding.counterMill.setupWithViewModel(getViewLifecycleOwner(), resources, MILL_LABEL);
         binding.counterMill.getBinding().incButton.setOnClickListener(v -> {
-            if (resources.canAffordComplex(MILL_COST)) {
-                resources.deductCost(MILL_COST);
+            // FIX: Get cost dynamically
+            String cost = resources.getCostForBuilding(MILL_LABEL);
+            if (resources.canAffordComplex(cost)) {
+                resources.deductCost(cost);
                 resources.incrementCounter(MILL_LABEL);
             }
         });
@@ -71,8 +67,10 @@ public class BuildingsFragment extends Fragment {
         // QUARRY SETUP
         binding.counterQuarry.setupWithViewModel(getViewLifecycleOwner(), resources, QUARRY_LABEL);
         binding.counterQuarry.getBinding().incButton.setOnClickListener(v -> {
-            if (resources.canAffordComplex(QUARRY_COST)) {
-                resources.deductCost(QUARRY_COST);
+            // FIX: Get cost dynamically
+            String cost = resources.getCostForBuilding(QUARRY_LABEL);
+            if (resources.canAffordComplex(cost)) {
+                resources.deductCost(cost);
                 resources.incrementCounter(QUARRY_LABEL);
             }
         });
@@ -80,8 +78,10 @@ public class BuildingsFragment extends Fragment {
         // STABLE SETUP
         binding.counterStable.setupWithViewModel(getViewLifecycleOwner(), resources, STABLE_LABEL);
         binding.counterStable.getBinding().incButton.setOnClickListener(v -> {
-            if (resources.canAffordComplex(STABLE_COST)) {
-                resources.deductCost(STABLE_COST);
+            // FIX: Get cost dynamically
+            String cost = resources.getCostForBuilding(STABLE_LABEL);
+            if (resources.canAffordComplex(cost)) {
+                resources.deductCost(cost);
                 resources.incrementCounter(STABLE_LABEL);
             }
         });
@@ -89,8 +89,10 @@ public class BuildingsFragment extends Fragment {
         // FORGE SETUP
         binding.counterForge.setupWithViewModel(getViewLifecycleOwner(), resources, FORGE_LABEL);
         binding.counterForge.getBinding().incButton.setOnClickListener(v -> {
-            if (resources.canAffordComplex(FORGE_COST)) {
-                resources.deductCost(FORGE_COST);
+            // FIX: Get cost dynamically
+            String cost = resources.getCostForBuilding(FORGE_LABEL);
+            if (resources.canAffordComplex(cost)) {
+                resources.deductCost(cost);
                 resources.incrementCounter(FORGE_LABEL);
             }
         });
@@ -98,8 +100,10 @@ public class BuildingsFragment extends Fragment {
         // PALACE SETUP
         binding.counterPalace.setupWithViewModel(getViewLifecycleOwner(), resources, PALACE_LABEL);
         binding.counterPalace.getBinding().incButton.setOnClickListener(v -> {
-            if (resources.canAffordComplex(PALACE_COST)) {
-                resources.deductCost(PALACE_COST);
+            // FIX: Get cost dynamically
+            String cost = resources.getCostForBuilding(PALACE_LABEL);
+            if (resources.canAffordComplex(cost)) {
+                resources.deductCost(cost);
                 resources.incrementCounter(PALACE_LABEL);
             }
         });
@@ -108,12 +112,13 @@ public class BuildingsFragment extends Fragment {
         // --- 4. Centralized update logic (Runnable) and Observers ---
 
         Runnable updateAllBuildingButtons = () -> {
-            binding.counterFarm.setIncrementButtonEnabled(resources.canAffordComplex(FARM_COST));
-            binding.counterMill.setIncrementButtonEnabled(resources.canAffordComplex(MILL_COST));
-            binding.counterQuarry.setIncrementButtonEnabled(resources.canAffordComplex(QUARRY_COST));
-            binding.counterStable.setIncrementButtonEnabled(resources.canAffordComplex(STABLE_COST));
-            binding.counterForge.setIncrementButtonEnabled(resources.canAffordComplex(FORGE_COST));
-            binding.counterPalace.setIncrementButtonEnabled(resources.canAffordComplex(PALACE_COST));
+            // FIX: Use the ViewModel's cost lookup for the button checks
+            binding.counterFarm.setIncrementButtonEnabled(resources.canAffordComplex(resources.getCostForBuilding(FARM_LABEL)));
+            binding.counterMill.setIncrementButtonEnabled(resources.canAffordComplex(resources.getCostForBuilding(MILL_LABEL)));
+            binding.counterQuarry.setIncrementButtonEnabled(resources.canAffordComplex(resources.getCostForBuilding(QUARRY_LABEL)));
+            binding.counterStable.setIncrementButtonEnabled(resources.canAffordComplex(resources.getCostForBuilding(STABLE_LABEL)));
+            binding.counterForge.setIncrementButtonEnabled(resources.canAffordComplex(resources.getCostForBuilding(FORGE_LABEL)));
+            binding.counterPalace.setIncrementButtonEnabled(resources.canAffordComplex(resources.getCostForBuilding(PALACE_LABEL)));
         };
 
 

@@ -47,6 +47,15 @@ public class Resources extends ViewModel {
         }
     }
 
+    /**
+     * Retrieves the cost string for a given building label from the HashMap.
+     * @param buildingLabel The name of the building (e.g., "Farm").
+     * @return The complex cost string (e.g., "Wood:1").
+     */
+    public String getCostForBuilding(String buildingLabel) {
+        return buildingCosts.get(buildingLabel);
+    }
+
     // ---------------------------------------------------------------------
     // COUNTER MANAGEMENT
     // ---------------------------------------------------------------------
