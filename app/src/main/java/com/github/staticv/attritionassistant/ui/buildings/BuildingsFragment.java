@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.github.staticv.attritionassistant.R;
 import com.github.staticv.attritionassistant.ui.Resources;
 import com.github.staticv.attritionassistant.databinding.FragmentBuildingsBinding;
+import com.github.staticv.attritionassistant.ui.CounterView; // Needed to access getBinding()
 
 public class BuildingsFragment extends Fragment {
 
@@ -26,103 +27,59 @@ public class BuildingsFragment extends Fragment {
         final String[] buildingLabels = getResources().getStringArray(R.array.building_labels_array);
         final String[] costsData = getResources().getStringArray(R.array.building_costs_data);
 
-        // This is the crucial step: Loading the map data into the ViewModel
+        // Load the HashMap in the ViewModel (Still necessary)
         resources.setBuildingCosts(buildingLabels, costsData);
 
-        // --- 2. Define Label variables (Labels are the HashMap keys) ---
-        final String FARM_LABEL = buildingLabels[0];
-        final String MILL_LABEL = buildingLabels[1];
-        final String QUARRY_LABEL = buildingLabels[2];
-        final String STABLE_LABEL = buildingLabels[3];
-        final String FORGE_LABEL = buildingLabels[4];
-        final String PALACE_LABEL = buildingLabels[5];
+        // --- 2. Define the Building View references for dynamic setup ---
+        // Create an array of the CounterViews in the order of the XML arrays.
+        // We use the binding object to access the views by their defined IDs (e.g., counterFarm).
+        final CounterView[] buildingViews = new CounterView[] {
+                binding.counterFarm,
+                binding.counterMill,
+                binding.counterQuarry,
+                binding.counterStable,
+                binding.counterForge,
+                binding.counterPalace
+        };
 
-        // REMOVED local COST variables (FARM_COST, MILL_COST, etc.)
-        // We will now retrieve the cost dynamically using the label.
+        // --- 3. Dynamic Setup and Listener Assignment (Index-Free Logic) ---
 
-        // --- 3. Setup ALL counters and OVERRIDE the Increment Listener ---
+        for (int i = 0; i < buildingLabels.length; i++) {
+            final String currentLabel = buildingLabels[i];
+            final CounterView currentView = buildingViews[i];
 
-        // FARM SETUP
-        binding.counterFarm.setupWithViewModel(getViewLifecycleOwner(), resources, FARM_LABEL);
-        binding.counterFarm.getBinding().incButton.setOnClickListener(v -> {
-            // FIX: Get cost dynamically from the ViewModel's HashMap
-            String cost = resources.getCostForBuilding(FARM_LABEL);
-            if (resources.canAffordComplex(cost)) {
-                resources.deductCost(cost);
-                resources.incrementCounter(FARM_LABEL);
-            }
-        });
+            // Setup ViewModel linkage
+            currentView.setupWithViewModel(getViewLifecycleOwner(), resources, currentLabel);
 
-        // MILL SETUP
-        binding.counterMill.setupWithViewModel(getViewLifecycleOwner(), resources, MILL_LABEL);
-        binding.counterMill.getBinding().incButton.setOnClickListener(v -> {
-            // FIX: Get cost dynamically
-            String cost = resources.getCostForBuilding(MILL_LABEL);
-            if (resources.canAffordComplex(cost)) {
-                resources.deductCost(cost);
-                resources.incrementCounter(MILL_LABEL);
-            }
-        });
+            // Override the Increment Button Listener
+            currentView.getBinding().incButton.setOnClickListener(v -> {
+                // Get the cost using the currentLabel (the HashMap key)
+                String cost = resources.getCostForBuilding(currentLabel);
 
-        // QUARRY SETUP
-        binding.counterQuarry.setupWithViewModel(getViewLifecycleOwner(), resources, QUARRY_LABEL);
-        binding.counterQuarry.getBinding().incButton.setOnClickListener(v -> {
-            // FIX: Get cost dynamically
-            String cost = resources.getCostForBuilding(QUARRY_LABEL);
-            if (resources.canAffordComplex(cost)) {
-                resources.deductCost(cost);
-                resources.incrementCounter(QUARRY_LABEL);
-            }
-        });
-
-        // STABLE SETUP
-        binding.counterStable.setupWithViewModel(getViewLifecycleOwner(), resources, STABLE_LABEL);
-        binding.counterStable.getBinding().incButton.setOnClickListener(v -> {
-            // FIX: Get cost dynamically
-            String cost = resources.getCostForBuilding(STABLE_LABEL);
-            if (resources.canAffordComplex(cost)) {
-                resources.deductCost(cost);
-                resources.incrementCounter(STABLE_LABEL);
-            }
-        });
-
-        // FORGE SETUP
-        binding.counterForge.setupWithViewModel(getViewLifecycleOwner(), resources, FORGE_LABEL);
-        binding.counterForge.getBinding().incButton.setOnClickListener(v -> {
-            // FIX: Get cost dynamically
-            String cost = resources.getCostForBuilding(FORGE_LABEL);
-            if (resources.canAffordComplex(cost)) {
-                resources.deductCost(cost);
-                resources.incrementCounter(FORGE_LABEL);
-            }
-        });
-
-        // PALACE SETUP
-        binding.counterPalace.setupWithViewModel(getViewLifecycleOwner(), resources, PALACE_LABEL);
-        binding.counterPalace.getBinding().incButton.setOnClickListener(v -> {
-            // FIX: Get cost dynamically
-            String cost = resources.getCostForBuilding(PALACE_LABEL);
-            if (resources.canAffordComplex(cost)) {
-                resources.deductCost(cost);
-                resources.incrementCounter(PALACE_LABEL);
-            }
-        });
-
+                if (resources.canAffordComplex(cost)) {
+                    resources.deductCost(cost);
+                    resources.incrementCounter(currentLabel);
+                }
+            });
+        }
 
         // --- 4. Centralized update logic (Runnable) and Observers ---
 
         Runnable updateAllBuildingButtons = () -> {
-            // FIX: Use the ViewModel's cost lookup for the button checks
-            binding.counterFarm.setIncrementButtonEnabled(resources.canAffordComplex(resources.getCostForBuilding(FARM_LABEL)));
-            binding.counterMill.setIncrementButtonEnabled(resources.canAffordComplex(resources.getCostForBuilding(MILL_LABEL)));
-            binding.counterQuarry.setIncrementButtonEnabled(resources.canAffordComplex(resources.getCostForBuilding(QUARRY_LABEL)));
-            binding.counterStable.setIncrementButtonEnabled(resources.canAffordComplex(resources.getCostForBuilding(STABLE_LABEL)));
-            binding.counterForge.setIncrementButtonEnabled(resources.canAffordComplex(resources.getCostForBuilding(FORGE_LABEL)));
-            binding.counterPalace.setIncrementButtonEnabled(resources.canAffordComplex(resources.getCostForBuilding(PALACE_LABEL)));
+            for (int i = 0; i < buildingLabels.length; i++) {
+                final String currentLabel = buildingLabels[i];
+                final CounterView currentView = buildingViews[i];
+
+                // Get cost dynamically to check affordability
+                String cost = resources.getCostForBuilding(currentLabel);
+
+                currentView.setIncrementButtonEnabled(resources.canAffordComplex(cost));
+            }
         };
 
 
         // Set up observers for ALL relevant resources
+        // Note: We still need explicit resource labels here, as they are static resource names.
         resources.getCounter(getString(R.string.label_wood)).observe(getViewLifecycleOwner(), amount -> updateAllBuildingButtons.run());
         resources.getCounter(getString(R.string.label_stone)).observe(getViewLifecycleOwner(), amount -> updateAllBuildingButtons.run());
         resources.getCounter(getString(R.string.label_iron)).observe(getViewLifecycleOwner(), amount -> updateAllBuildingButtons.run());
