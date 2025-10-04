@@ -1,5 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <string-array name="building_labels_array">
+        <item>@string/label_farm</item>
+        <item>@string/label_mill</item>
+        <item>@string/label_quarry</item>
+        <item>@string/label_stable</item>
+        <item>@string/label_forge</item>
+        <item>@string/label_palace</item>
+    </string-array>
+
     <string-array name="building_costs_data">
         <item>Wood:1</item>
 

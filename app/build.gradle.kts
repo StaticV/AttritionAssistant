@@ -10,7 +10,7 @@ android {
         applicationId = "com.github.staticv.attritionassistant"
         minSdk = 24
         targetSdk = 36
-        versionCode = 12
+        versionCode = 13
         versionName = "1.2"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"

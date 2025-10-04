@@ -10,51 +10,43 @@ import androidx.lifecycle.ViewModelProvider;
 import com.github.staticv.attritionassistant.R;
 import com.github.staticv.attritionassistant.ui.Resources;
 import com.github.staticv.attritionassistant.databinding.FragmentBuildingsBinding;
-// Removed: import com.github.staticv.attritionassistant.ui.CounterView; // Unused import
 
 public class BuildingsFragment extends Fragment {
 
     private FragmentBuildingsBinding binding;
-    // Removed: private Resources resources;    // Converted to local variable
-    // Removed: private String[] costsData;    // Converted to local variable
 
-    // Define indices to access the cost strings, matching the new order in arrays.xml
-    private static final int FARM_INDEX = 0;
-    private static final int MILL_INDEX = 1;
-    private static final int QUARRY_INDEX = 2;
-    private static final int STABLE_INDEX = 3;
-    private static final int FORGE_INDEX = 4;
-    private static final int PALACE_INDEX = 5;
+    // REMOVED ALL STATIC INDEX CONSTANTS (FARM_INDEX, MILL_INDEX, etc.)
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        // Converted fields to local variables inside onCreateView
         final Resources resources = new ViewModelProvider(requireActivity()).get(Resources.class);
         binding = FragmentBuildingsBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        // 1. Load the complex cost data from the string array XML
+        // 1. Load Cost Data and Building Labels from parallel arrays
+        // NOTE: Ensure you have an array defined as 'building_labels_array' in your XML
+        final String[] buildingLabels = getResources().getStringArray(R.array.building_labels_array);
         final String[] costsData = getResources().getStringArray(R.array.building_costs_data);
 
-        // Define all cost strings once for use in the listeners
-        final String FARM_COST = costsData[FARM_INDEX];
-        final String MILL_COST = costsData[MILL_INDEX];
-        final String QUARRY_COST = costsData[QUARRY_INDEX];
-        final String STABLE_COST = costsData[STABLE_INDEX];
-        final String FORGE_COST = costsData[FORGE_INDEX];
-        final String PALACE_COST = costsData[PALACE_INDEX];
+        // Load the HashMap in the ViewModel for safe lookups later
+        resources.setBuildingCosts(buildingLabels, costsData);
 
-        // Define all label strings once
-        final String FARM_LABEL = getString(R.string.label_farm);
-        final String MILL_LABEL = getString(R.string.label_mill);
-        final String QUARRY_LABEL = getString(R.string.label_quarry);
-        final String STABLE_LABEL = getString(R.string.label_stable);
-        final String FORGE_LABEL = getString(R.string.label_forge);
-        final String PALACE_LABEL = getString(R.string.label_palace);
+        // --- 2. Define required variables using the loaded arrays ---
+        // Accessing array elements by index is safe *here* because they are parallel arrays.
+        final String FARM_LABEL = buildingLabels[0];
+        final String MILL_LABEL = buildingLabels[1];
+        final String QUARRY_LABEL = buildingLabels[2];
+        final String STABLE_LABEL = buildingLabels[3];
+        final String FORGE_LABEL = buildingLabels[4];
+        final String PALACE_LABEL = buildingLabels[5];
 
-
-        // Removed: View.OnClickListener buildButtonListener = (v) -> { ... }; // Was unused
+        final String FARM_COST = costsData[0];
+        final String MILL_COST = costsData[1];
+        final String QUARRY_COST = costsData[2];
+        final String STABLE_COST = costsData[3];
+        final String FORGE_COST = costsData[4];
+        final String PALACE_COST = costsData[5];
 
         // --- 3. Setup ALL counters and OVERRIDE the Increment Listener ---
 

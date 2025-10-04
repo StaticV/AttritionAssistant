@@ -8,7 +8,11 @@ import java.util.Map;
 
 public class Resources extends ViewModel {
 
+    // Main map for resource/unit counts
     private final Map<String, MutableLiveData<Integer>> counters = new HashMap<>();
+
+    // NEW MAP to store cost data, keyed by building label
+    private final Map<String, String> buildingCosts = new HashMap<>();
 
     public Resources() {
         // The constructor is now empty.
@@ -21,6 +25,40 @@ public class Resources extends ViewModel {
             }
         }
     }
+
+    // ---------------------------------------------------------------------
+    // NEW METHOD FOR COST DATA MANAGEMENT
+    // ---------------------------------------------------------------------
+
+    /**
+     * Loads building cost data into a Map for label-based access.
+     * Note: Arrays passed here must be parallel (Labels at index 0, Costs at index 0, etc.).
+     * @param labels Array of building names (e.g., "Farm", "Mill").
+     * @param costs Array of cost strings (e.g., "Wood:1", "Wood:2|Stone:2").
+     */
+    public void setBuildingCosts(String[] labels, String[] costs) {
+        if (labels.length != costs.length) {
+            // Should be caught during development, but safe to include
+            throw new IllegalArgumentException("Building labels and costs arrays must be the same length.");
+        }
+        buildingCosts.clear();
+        for (int i = 0; i < labels.length; i++) {
+            buildingCosts.put(labels[i], costs[i]);
+        }
+    }
+
+    /**
+     * Retrieves the cost string for a given building label from the HashMap.
+     * @param buildingLabel The name of the building (e.g., "Farm").
+     * @return The complex cost string (e.g., "Wood:1").
+     */
+    public String getCostForBuilding(String buildingLabel) {
+        return buildingCosts.get(buildingLabel);
+    }
+
+    // ---------------------------------------------------------------------
+    // COUNTER MANAGEMENT
+    // ---------------------------------------------------------------------
 
     public LiveData<Integer> getCounter(String label) {
         return counters.get(label);
